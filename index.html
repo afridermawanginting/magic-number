@@ -55,12 +55,16 @@
     const render = () => {
         const container = document.getElementById('files')
         const uploadedFiles = uploads.map((file) => {
-            return `<div>
-                    <strong>${file.filename}</strong><br>
-                    Filetype from file object: ${file.filetype}<br>
-                    Filetype from binary: ${file.binaryFileType}<br>
-                    Hex: <em>${file.hex}</em>
-                    </div>`
+
+            $filetype = file.filetype;
+            $binaryfiletype  = file.binaryFileType;
+
+            if ($filetype == $binaryfiletype) {
+              return window.confirm("Format file sama!");
+            } else {
+              return window.confirm("Format file tidak sama!");
+            }
+
         })
         container.innerHTML = uploadedFiles.join('')
     }
@@ -77,6 +81,8 @@
                 return 'image/jpeg'
             case '504B0304':
                 return 'application/zip'
+            case '504B34':
+                return 'application/docx'
             default:
                 return 'Unknown filetype'
         }
